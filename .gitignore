@@ -39,3 +39,10 @@ obj/
 # OS system files
 .DS_Store
 Thumbs.db
+
+.gradle/
+.idea/
+build/
+*/build/
+local.properties
+*.iml
