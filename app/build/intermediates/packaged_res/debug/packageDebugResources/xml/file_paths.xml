@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<paths>
-    <!-- Configure cache-path to securely share camera images taken inside the app's cache directory -->
-    <cache-path name="grain_images" path="." />
-</paths>

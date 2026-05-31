@@ -1,5 +1,0 @@
-0 Rice
-1 wheat
-2 bajra
-3 maize
-4 Raagi
