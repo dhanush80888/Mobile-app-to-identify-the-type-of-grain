@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#FAF8F5</color>
+    <color name="bajra_bg">#FEF3C7</color>
+    <color name="bajra_tag">#78350F</color>
+    <color name="card_border">#E5E7EB</color>
+    <color name="maize_bg">#FEFCE8</color>
+    <color name="maize_tag">#EAB308</color>
+    <color name="primary">#D97706</color>
+    <color name="primary_light">#F59E0B</color>
+    <color name="primary_variant">#B45309</color>
+    <color name="ragi_bg">#FEF2F2</color>
+    <color name="ragi_tag">#991B1B</color>
+    <color name="rice_bg">#EFF6FF</color>
+    <color name="rice_tag">#3A86C8</color>
+    <color name="secondary">#1B4332</color>
+    <color name="secondary_light">#D8F3DC</color>
+    <color name="secondary_variant">#40916C</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_hint">#9CA3AF</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_secondary">#FFFFFF</color>
+    <color name="text_primary">#1F2937</color>
+    <color name="text_secondary">#4B5563</color>
+    <color name="wheat_bg">#FFFBEB</color>
+    <color name="wheat_tag">#D97706</color>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="button_corner_radius">12dp</dimen>
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="logo_header_size">48dp</dimen>
+    <dimen name="logo_splash_size">120dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_xs">4dp</dimen>
+    <string name="app_name">Grain Classifier</string>
+    <string name="btn_take_photo">Take Photo</string>
+    <string name="btn_upload_image">Upload Image</string>
+    <string name="desc_bajra">Pennisetum glaucum • Climate-resilient, mineral-dense millet.</string>
+    <string name="desc_maize">Zea mays • Dual-purpose feed &amp; food, high starch profile.</string>
+    <string name="desc_ragi">Eleusine coracana • Finger millet, superior calcium &amp; iron source.</string>
+    <string name="desc_rice">Oryza sativa • Highly consumed staple, rich in carbohydrates.</string>
+    <string name="desc_wheat">Triticum • Premium crop used for flour, rich in proteins &amp; fiber.</string>
+    <string name="grain_bajra">Bajra</string>
+    <string name="grain_detail_title">Supported Grains Catalog</string>
+    <string name="grain_maize">Maize</string>
+    <string name="grain_ragi">Ragi</string>
+    <string name="grain_rice">Rice</string>
+    <string name="grain_wheat">Wheat</string>
+    <string name="home_tagline">Identify, classify, and analyze grain types instantly using modern AI computer vision models.</string>
+    <string name="home_welcome">Welcome to</string>
+    <string name="section_supported_grains">Supported Grains</string>
+    <string name="splash_loading">Initializing Engine…</string>
+    <string name="splash_subtitle">Precision Seed Analysis</string>
+    <style name="Theme.GrainClassifier" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/text_on_primary</item>
+        <item name="colorPrimaryContainer">@color/wheat_bg</item>
+        <item name="colorOnPrimaryContainer">@color/primary_variant</item>
+
+        
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@color/text_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/secondary_light</item>
+        <item name="colorOnSecondaryContainer">@color/secondary</item>
+
+        
+        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:navigationBarColor">@color/background</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+
+        
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+</resources>

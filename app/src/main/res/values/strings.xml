@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Grain Classifier</string>
+    <string name="splash_subtitle">Precision Seed Analysis</string>
+    <string name="splash_loading">Initializing Engine…</string>
+    
+    <string name="home_welcome">Welcome to</string>
+    <string name="home_tagline">Identify, classify, and analyze grain types instantly using modern AI computer vision models.</string>
+    <string name="btn_take_photo">Take Photo</string>
+    <string name="btn_upload_image">Upload Image</string>
+    
+    <string name="section_supported_grains">Supported Grains</string>
+    <string name="grain_detail_title">Supported Grains Catalog</string>
+    
+    <!-- Grain names & descriptive texts -->
+    <string name="grain_rice">Rice</string>
+    <string name="grain_wheat">Wheat</string>
+    <string name="grain_maize">Maize</string>
+    <string name="grain_bajra">Bajra</string>
+    <string name="grain_ragi">Ragi</string>
+
+    <string name="desc_rice">Oryza sativa • Highly consumed staple, rich in carbohydrates.</string>
+    <string name="desc_wheat">Triticum • Premium crop used for flour, rich in proteins &amp; fiber.</string>
+    <string name="desc_maize">Zea mays • Dual-purpose feed &amp; food, high starch profile.</string>
+    <string name="desc_bajra">Pennisetum glaucum • Climate-resilient, mineral-dense millet.</string>
+    <string name="desc_ragi">Eleusine coracana • Finger millet, superior calcium &amp; iron source.</string>
+</resources>
