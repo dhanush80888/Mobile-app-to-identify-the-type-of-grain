@@ -2,8 +2,11 @@ package com.example.grainclassifier.ml
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
+import android.util.Log
 import org.tensorflow.lite.Interpreter
 import java.io.BufferedReader
 import java.io.FileInputStream
@@ -19,6 +22,7 @@ import kotlin.random.Random
  * Executes actual local model inferences.
  */
 class GrainClassifier(private val context: Context) {
+    private val TAG = "GrainClassifier"
 
     // Actual TensorFlow Lite Interpreter
     private var interpreter: Interpreter? = null
@@ -54,8 +58,14 @@ class GrainClassifier(private val context: Context) {
             val modelBuffer: MappedByteBuffer = loadModelFile("model.tflite")
             val options = Interpreter.Options()
             interpreter = Interpreter(modelBuffer, options)
+            
+            // Log model info for debugging
+            val inputTensor = interpreter?.getInputTensor(0)
+            val outputTensor = interpreter?.getOutputTensor(0)
+            Log.d(TAG, "Model loaded. Input shape: ${inputTensor?.shape()?.contentToString()}, Type: ${inputTensor?.dataType()}")
+            Log.d(TAG, "Output shape: ${outputTensor?.shape()?.contentToString()}, Type: ${outputTensor?.dataType()}")
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e(TAG, "Model failed to load", e)
             throw Exception("Model file 'model.tflite' failed to load from assets: ${e.message}")
         }
     }
@@ -97,7 +107,9 @@ class GrainClassifier(private val context: Context) {
     fun preprocessImage(bitmap: Bitmap): ByteBuffer {
         // Model input dimensions: 224x224 RGB
         val inputSize = 224
-        val byteBuffer = ByteBuffer.allocateDirect(4 * inputSize * inputSize * 3) // Float takes 4 bytes
+        // The error indicates the model expects 150528 bytes (224 * 224 * 3 * 1 byte)
+        // This means it is a Quantized (UINT8) model, not a Float model.
+        val byteBuffer = ByteBuffer.allocateDirect(inputSize * inputSize * 3) 
         byteBuffer.order(ByteOrder.nativeOrder())
 
         // Resize bitmap to target size
@@ -111,14 +123,14 @@ class GrainClassifier(private val context: Context) {
             for (j in 0 until inputSize) {
                 val value = intValues[pixelIndex++]
                 
-                // Decode pixel indices and normalize to [0.0, 1.0] for float model input tensors
-                val r = ((value shr 16) and 0xFF) / 255.0f
-                val g = ((value shr 8) and 0xFF) / 255.0f
-                val b = (value and 0xFF) / 255.0f
+                // For UINT8 models, we extract the 0-255 values directly as bytes
+                val r = ((value shr 16) and 0xFF).toByte()
+                val g = ((value shr 8) and 0xFF).toByte()
+                val b = (value and 0xFF).toByte()
                 
-                byteBuffer.putFloat(r)
-                byteBuffer.putFloat(g)
-                byteBuffer.putFloat(b)
+                byteBuffer.put(r)
+                byteBuffer.put(g)
+                byteBuffer.put(b)
             }
         }
 
@@ -130,23 +142,49 @@ class GrainClassifier(private val context: Context) {
      * Returns classification predictions of the category with the highest confidence level.
      */
     fun classifyImage(bitmap: Bitmap): Prediction {
+        Log.d(TAG, "Starting classification...")
         val activeInterpreter = interpreter ?: throw Exception("Interpreter failed: model structure not loaded.")
         
         // Step 1: Preprocess bitmap image
         val inputBuffer = preprocessImage(bitmap)
         
-        // Step 2: Prepare output probability float arrays [1, labels.size]
-        val outputArray = Array(1) { FloatArray(labels.size) }
+        // Step 2: Prepare output probability buffer
+        val outputTensor = activeInterpreter.getOutputTensor(0)
+        val numLabels = outputTensor.shape()[1]
+        val isOutputQuantized = outputTensor.dataType() == org.tensorflow.lite.DataType.UINT8
+        val outputSize = if (isOutputQuantized) numLabels else numLabels * 4
+        
+        Log.d(TAG, "Model output shape: ${outputTensor.shape().contentToString()}, Expected labels: $numLabels, Type: ${outputTensor.dataType()}")
+
+        val outputBuffer = ByteBuffer.allocateDirect(outputSize)
+        outputBuffer.order(ByteOrder.nativeOrder())
         
         // Step 3: Run model inference execution
-        activeInterpreter.run(inputBuffer, outputArray)
+        try {
+            activeInterpreter.run(inputBuffer, outputBuffer)
+        } catch (e: Exception) {
+            Log.e(TAG, "Inference failed", e)
+            throw Exception("Inference execution failed: ${e.message}")
+        }
         
         // Step 4: Parse index of highest confidence class
-        val probabilities = outputArray[0]
+        outputBuffer.rewind()
+        val probabilities = FloatArray(numLabels)
+        if (isOutputQuantized) {
+            for (i in 0 until numLabels) {
+                probabilities[i] = (outputBuffer.get().toInt() and 0xFF) / 255.0f
+            }
+        } else {
+            for (i in 0 until numLabels) {
+                probabilities[i] = outputBuffer.float
+            }
+        }
+
         var maxIndex = -1
         var maxConfidence = -1.0f
         
         for (i in probabilities.indices) {
+            Log.d(TAG, "Label ${if (i < labels.size) labels[i] else "Unknown($i)"}: ${probabilities[i]}")
             if (probabilities[i] > maxConfidence) {
                 maxConfidence = probabilities[i]
                 maxIndex = i
@@ -213,9 +251,18 @@ class GrainClassifier(private val context: Context) {
      */
     fun uriToBitmap(uri: Uri): Bitmap? {
         return try {
-            MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                val source = ImageDecoder.createSource(context.contentResolver, uri)
+                ImageDecoder.decodeBitmap(source) { decoder, _, _ ->
+                    decoder.allocator = ImageDecoder.ALLOCATOR_SOFTWARE
+                    decoder.isMutableRequired = true
+                }
+            } else {
+                @Suppress("DEPRECATION")
+                MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
+            }
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e(TAG, "Failed to decode bitmap", e)
             null
         }
     }

@@ -1,10 +1,14 @@
 package com.example.grainclassifier
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.example.grainclassifier.databinding.ActivityMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -14,6 +18,18 @@ import java.io.File
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    // 0. Permission Launcher
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val cameraGranted = permissions[Manifest.permission.CAMERA] ?: false
+        if (cameraGranted) {
+            triggerCamera()
+        } else {
+            Snackbar.make(binding.root, "Camera permission is required to take photos.", Snackbar.LENGTH_LONG).show()
+        }
+    }
 
     // 1. Gallery Result Launcher
     private val pickImageLauncher = registerForActivityResult(
@@ -52,6 +68,18 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnUploadImage.setOnClickListener {
             triggerGallery()
+        }
+
+        binding.btnRealtimeDetection.setOnClickListener {
+            val intent = Intent(this, RealTimeDetectionActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
+
+        binding.btnViewHistory.setOnClickListener {
+            val intent = Intent(this, HistoryActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
 
         // Interactive Grain Cards
@@ -133,6 +161,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun triggerCamera() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(arrayOf(Manifest.permission.CAMERA))
+            return
+        }
         try {
             // Create a temporary file in our secure shared cache path directory
             val cachePath = File(cacheDir, "grain_images")

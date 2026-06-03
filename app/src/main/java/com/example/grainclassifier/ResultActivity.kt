@@ -4,7 +4,13 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.grainclassifier.data.db.AppDatabase
+import com.example.grainclassifier.data.entity.ClassificationHistory
+import com.example.grainclassifier.data.repository.HistoryRepository
 import com.example.grainclassifier.databinding.ActivityResultBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ResultActivity : AppCompatActivity() {
 
@@ -73,6 +79,30 @@ class ResultActivity : AppCompatActivity() {
         }
 
         setupClickListeners()
+
+        // Automatically save a history record on background thread
+        saveClassificationToHistory(grainName, confidenceScore, imageUriString)
+    }
+
+    /**
+     * Persists the classification record locally in Room Database using background Coroutine.
+     */
+    private fun saveClassificationToHistory(
+        grainName: String,
+        confidenceScore: Int,
+        imageUriString: String?
+    ) {
+        val database = AppDatabase.getDatabase(applicationContext)
+        val repository = HistoryRepository(database.historyDao())
+        val record = ClassificationHistory(
+            grainName = grainName,
+            confidencePercentage = confidenceScore,
+            timestamp = System.currentTimeMillis(),
+            imagePath = imageUriString
+        )
+        lifecycleScope.launch(Dispatchers.IO) {
+            repository.insert(record)
+        }
     }
 
     private fun setupClickListeners() {

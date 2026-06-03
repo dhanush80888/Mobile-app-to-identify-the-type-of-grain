@@ -45,6 +45,18 @@
             android:exported="false"
             android:theme="@style/Theme.GrainClassifier" />
 
+        <!-- Real-Time Detection Activity -->
+        <activity
+            android:name=".RealTimeDetectionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.GrainClassifier" />
+
+        <!-- History Screen Activity -->
+        <activity
+            android:name=".HistoryActivity"
+            android:exported="false"
+            android:theme="@style/Theme.GrainClassifier" />
+
         <!-- FileProvider for Secure Camera Image Sharing -->
         <provider
             android:name="androidx.core.content.FileProvider"
