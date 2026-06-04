@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand Colors (Warm Grain & Nature Theme) -->
-    <color name="primary">#D97706</color>         <!-- Warm Golden Amber -->
-    <color name="primary_variant">#B45309</color> <!-- Deep Rich Bronze -->
-    <color name="primary_light">#F59E0B</color>   <!-- Bright Gold -->
+    <!-- Brand Colors (Agricultural Green Theme) -->
+    <color name="primary">#2E7D32</color>         <!-- Forest Green -->
+    <color name="primary_variant">#1B5E20</color> <!-- Deep Green -->
+    <color name="primary_light">#E8F5E9</color>   <!-- Light Mint Green -->
     
-    <color name="secondary">#1B4332</color>       <!-- Deep Forest Green -->
-    <color name="secondary_variant">#40916C</color> <!-- Soft Sage Green -->
-    <color name="secondary_light">#D8F3DC</color>   <!-- Pale Mint Accent -->
+    <color name="secondary">#388E3C</color>       <!-- Medium Green -->
+    <color name="secondary_variant">#4CAF50</color> <!-- Soft Grass Green -->
+    <color name="secondary_light">#E8F5E9</color>   <!-- Pale Mint Accent -->
 
     <!-- Neutral Colors -->
-    <color name="background">#FAF8F5</color>      <!-- Elegant Oatmeal/Cream -->
+    <color name="background">#F4F6F4</color>      <!-- Light Green-Tilted Off-White -->
     <color name="surface">#FFFFFF</color>         <!-- Card Surface White -->
     <color name="card_border">#E5E7EB</color>     <!-- Subtle Gray Border -->
     
     <!-- Text Colors -->
-    <color name="text_primary">#1F2937</color>    <!-- Deep Charcoal -->
-    <color name="text_secondary">#4B5563</color>  <!-- Muted Slate Gray -->
+    <color name="text_primary">#1A251D</color>    <!-- Deep Forest Charcoal -->
+    <color name="text_secondary">#526056</color>  <!-- Muted Slate Sage -->
     <color name="text_hint">#9CA3AF</color>       <!-- Light Gray -->
     <color name="text_on_primary">#FFFFFF</color> <!-- Contrast White -->
     <color name="text_on_secondary">#FFFFFF</color> <!-- Contrast White -->
+
+    <!-- Action Card Pastel Backgrounds -->
+    <color name="card_take_photo_bg">#FFF5EB</color>    <!-- Soft Peach/Orange -->
+    <color name="card_take_photo_icon">#E67E22</color>  <!-- Vibrant Coral Orange -->
+    
+    <color name="card_upload_image_bg">#E8F8F5</color>  <!-- Soft Pastel Green -->
+    <color name="card_upload_image_icon">#27AE60</color><!-- Vibrant Forest Green -->
+    
+    <color name="card_realtime_bg">#F5EEF8</color>      <!-- Soft Lavender/Purple -->
+    <color name="card_realtime_icon">#8E44AD</color>    <!-- Vibrant Royal Purple -->
+    
+    <color name="card_history_bg">#EBF5FB</color>       <!-- Soft Sky Blue -->
+    <color name="card_history_icon">#2980B9</color>     <!-- Vibrant Steel Blue -->
+
+    <color name="feature_layout_bg">#EFF7EE</color>     <!-- Soft Agricultural Accent -->
 
     <!-- Individual Grain Accents for Decorative Tags -->
     <color name="rice_tag">#3A86C8</color>        <!-- Soft Blue -->

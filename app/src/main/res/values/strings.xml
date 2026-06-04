@@ -24,4 +24,6 @@
     <string name="desc_maize">Zea mays • Dual-purpose feed &amp; food, high starch profile.</string>
     <string name="desc_bajra">Pennisetum glaucum • Climate-resilient, mineral-dense millet.</string>
     <string name="desc_ragi">Eleusine coracana • Finger millet, superior calcium &amp; iron source.</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

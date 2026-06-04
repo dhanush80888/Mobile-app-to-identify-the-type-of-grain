@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_realtime"
+            android:icon="@drawable/ic_scan"
+            android:title="Real-Time Detection" />
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_history"
+            android:title="Classification History" />
+        <item
+            android:id="@+id/nav_saved_results"
+            android:icon="@drawable/ic_save"
+            android:title="Saved Results" />
+        <item
+            android:id="@+id/nav_supported_grains"
+            android:icon="@drawable/ic_grains"
+            android:title="Supported Grains" />
+    </group>
+
+    <item android:title="Info &amp; Options">
+        <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info"
+                android:title="About Project" />
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="Settings" />
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@drawable/ic_help"
+                android:title="Help" />
+            <item
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/ic_exit"
+                android:title="Exit" />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="?attr/colorPrimaryContainer"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_grain_logo"
+        android:contentDescription="Grain Classifier Logo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Grain Classifier"
+        android:textColor="?attr/colorOnPrimaryContainer"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="AI Powered Grain Identification"
+        android:textColor="?attr/colorOnPrimaryContainer"
+        android:alpha="0.8"
+        android:textSize="12sp" />
+
+</LinearLayout>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_root"
+    android:layout_width="140dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/card_border"
+    app:cardBackgroundColor="@color/surface">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <!-- Image Container with Corner Badge -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_grain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:src="@drawable/grain_rice" />
+
+            <!-- Bubble Initials Badge at Bottom Right of Image -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/badge_container"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="4dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/rice_tag"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_badge"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Ri"
+                    android:gravity="center"
+                    android:textColor="@color/surface"
+                    android:textStyle="bold"
+                    android:textSize="11sp"/>
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Grain Text Info -->
+        <TextView
+            android:id="@+id/tv_grain_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Rice"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+
+        <TextView
+            android:id="@+id/tv_grain_desc"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginTop="2dp"
+            android:text="High in carbohydrates and energy."
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:lineSpacingMultiplier="1.1"/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

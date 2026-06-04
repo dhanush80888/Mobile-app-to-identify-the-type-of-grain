@@ -5,7 +5,7 @@
         <!-- Primary brand color -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/text_on_primary</item>
-        <item name="colorPrimaryContainer">@color/wheat_bg</item>
+        <item name="colorPrimaryContainer">@color/primary_light</item>
         <item name="colorOnPrimaryContainer">@color/primary_variant</item>
 
         <!-- Secondary brand color -->

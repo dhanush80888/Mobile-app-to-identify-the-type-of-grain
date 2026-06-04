@@ -57,6 +57,18 @@
             android:exported="false"
             android:theme="@style/Theme.GrainClassifier" />
 
+        <!-- Supported Grains Screen Activity -->
+        <activity
+            android:name=".SupportedGrainsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.GrainClassifier" />
+
+        <!-- Saved Results Screen Activity -->
+        <activity
+            android:name=".SavedResultsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.GrainClassifier" />
+
         <!-- FileProvider for Secure Camera Image Sharing -->
         <provider
             android:name="androidx.core.content.FileProvider"
