@@ -14,6 +14,7 @@ Grain Classification Using Machine Learning on Android
 | Name | USN |
 |--------|--------|
 | Abdul khuddus khazi | KUB23CSE002 |
+| Tarun Kumar G | KUB23CSE146 |
 
 ---
 
