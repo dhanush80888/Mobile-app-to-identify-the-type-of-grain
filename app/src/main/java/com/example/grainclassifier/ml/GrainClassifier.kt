@@ -218,6 +218,16 @@ class GrainClassifier(private val context: Context) {
         
         val botanicalName = botanicalNames[displayLabel] ?: "Gramineae"
         val finalConfidence = maxConfidence * 100
+
+        if (finalConfidence < 70f) {
+            return Prediction(
+                label = "Unknown Object",
+                confidence = finalConfidence,
+                moistureLevel = 0.0f,
+                grade = "N/A"
+            )
+        }
+
         val moisture = Random.nextFloat() * 2.0f + 11.5f     // safe moisture bounds: 11.5% to 13.5%
 
         val grade = when {

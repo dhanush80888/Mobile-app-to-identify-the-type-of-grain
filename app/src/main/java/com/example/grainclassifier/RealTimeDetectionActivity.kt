@@ -182,10 +182,14 @@ class RealTimeDetectionActivity : AppCompatActivity() {
      * and averages metrics to ensure high visual quality.
      */
     private fun processPrediction(prediction: GrainClassifier.Prediction) {
-        if (prediction.confidence < 50f) return // Requirement 12: Ignore low confidence predictions
+        val label = if (prediction.confidence < 70f || prediction.label.contains("Unknown", ignoreCase = true)) {
+            "Scanning..."
+        } else {
+            prediction.label
+        }
 
         synchronized(predictionHistory) {
-            predictionHistory.add(prediction.label)
+            predictionHistory.add(label)
             if (predictionHistory.size > 10) {
                 predictionHistory.removeAt(0)
             }
@@ -207,8 +211,15 @@ class RealTimeDetectionActivity : AppCompatActivity() {
             } else if (majorityPrediction != null && majorityPrediction == currentStableLabel) {
                 // Stabilized prediction remains unchanged: smoothly update the confidence metrics
                 runOnUiThread {
-                    binding.tvConfidencePercent.text = "${prediction.confidence.toInt()}%"
-                    binding.progressConfidence.progress = prediction.confidence.toInt()
+                    if (majorityPrediction == "Scanning...") {
+                        binding.tvConfidencePercent.visibility = android.view.View.GONE
+                        binding.progressConfidence.visibility = android.view.View.GONE
+                    } else {
+                        binding.tvConfidencePercent.visibility = android.view.View.VISIBLE
+                        binding.progressConfidence.visibility = android.view.View.VISIBLE
+                        binding.tvConfidencePercent.text = "${prediction.confidence.toInt()}%"
+                        binding.progressConfidence.progress = prediction.confidence.toInt()
+                    }
                 }
             }
         }
@@ -219,6 +230,21 @@ class RealTimeDetectionActivity : AppCompatActivity() {
      */
     private fun updateUI(displayLabel: String, fullLabel: String, confidence: Float) {
         binding.tvGrainClass.text = fullLabel
+        
+        if (displayLabel == "Scanning...") {
+            binding.tvConfidencePercent.visibility = android.view.View.GONE
+            binding.progressConfidence.visibility = android.view.View.GONE
+            binding.tvStatusText.text = "Scanning..."
+            
+            binding.badgeStatus.setCardBackgroundColor(getColor(R.color.background))
+            binding.tvStatusText.setTextColor(getColor(R.color.text_secondary))
+            binding.tvConfidencePercent.setTextColor(getColor(R.color.text_secondary))
+            binding.progressConfidence.progressTintList = android.content.res.ColorStateList.valueOf(getColor(R.color.text_secondary))
+            return
+        }
+
+        binding.tvConfidencePercent.visibility = android.view.View.VISIBLE
+        binding.progressConfidence.visibility = android.view.View.VISIBLE
         binding.tvConfidencePercent.text = "${confidence.toInt()}%"
         binding.progressConfidence.progress = confidence.toInt()
         

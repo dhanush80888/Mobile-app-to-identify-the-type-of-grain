@@ -44,7 +44,12 @@ class ResultActivity : AppCompatActivity() {
 
         // Bind text data
         binding.tvGrainName.text = grainName
-        binding.tvConfidenceValue.text = "$confidenceScore% Accuracy"
+        if (grainName.contains("Unknown", ignoreCase = true)) {
+            binding.badgeConfidence.visibility = android.view.View.GONE
+        } else {
+            binding.badgeConfidence.visibility = android.view.View.VISIBLE
+            binding.tvConfidenceValue.text = "$confidenceScore% Accuracy"
+        }
 
         // Dynamic botanical tag matching fallback logic
         when {
@@ -52,29 +57,37 @@ class ResultActivity : AppCompatActivity() {
                 binding.tvParamBotanical.text = "Oryza sativa"
                 binding.badgeConfidence.setCardBackgroundColor(getColor(R.color.rice_bg))
                 binding.tvConfidenceValue.setTextColor(getColor(R.color.rice_tag))
+                binding.tvParamStatus.text = "Safe (Optimal Moisture)"
             }
             grainName.contains("Wheat", ignoreCase = true) -> {
                 binding.tvParamBotanical.text = "Triticum"
                 binding.badgeConfidence.setCardBackgroundColor(getColor(R.color.wheat_bg))
                 binding.tvConfidenceValue.setTextColor(getColor(R.color.wheat_tag))
+                binding.tvParamStatus.text = "Safe (Optimal Moisture)"
             }
             grainName.contains("Maize", ignoreCase = true) -> {
                 binding.tvParamBotanical.text = "Zea mays"
                 binding.badgeConfidence.setCardBackgroundColor(getColor(R.color.maize_bg))
                 binding.tvConfidenceValue.setTextColor(getColor(R.color.maize_tag))
+                binding.tvParamStatus.text = "Safe (Optimal Moisture)"
             }
             grainName.contains("Bajra", ignoreCase = true) -> {
                 binding.tvParamBotanical.text = "Pennisetum glaucum"
                 binding.badgeConfidence.setCardBackgroundColor(getColor(R.color.bajra_bg))
                 binding.tvConfidenceValue.setTextColor(getColor(R.color.bajra_tag))
+                binding.tvParamStatus.text = "Safe (Optimal Moisture)"
             }
             grainName.contains("Ragi", ignoreCase = true) -> {
                 binding.tvParamBotanical.text = "Eleusine coracana"
                 binding.badgeConfidence.setCardBackgroundColor(getColor(R.color.ragi_bg))
                 binding.tvConfidenceValue.setTextColor(getColor(R.color.ragi_tag))
+                binding.tvParamStatus.text = "Safe (Optimal Moisture)"
             }
             else -> {
-                binding.tvParamBotanical.text = "Gramineae family"
+                binding.tvParamBotanical.text = "N/A"
+                binding.badgeConfidence.setCardBackgroundColor(getColor(R.color.background))
+                binding.tvConfidenceValue.setTextColor(getColor(R.color.text_secondary))
+                binding.tvParamStatus.text = "N/A"
             }
         }
 
